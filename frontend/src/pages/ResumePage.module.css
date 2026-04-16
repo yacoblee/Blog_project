@@ -1,0 +1,516 @@
+/* ── Page ── */
+.page {
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+.container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 40px 80px;
+}
+
+/* ══ HERO ══ */
+.hero {
+  background: linear-gradient(135deg, rgba(26,5,51,0.6) 0%, rgba(45,27,105,0.45) 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 56px 40px;
+}
+
+.heroInner {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+/* 아바타 */
+.avatarWrap {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent) 0%, #6b21a8 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid var(--accent);
+  box-shadow: 0 0 32px rgba(170, 59, 255, 0.35);
+  overflow: hidden;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatarInitial {
+  font-size: 44px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
+}
+
+.availBadge {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  background: rgba(34, 197, 94, 0.15);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  border-radius: 20px;
+  color: #4ade80;
+  white-space: nowrap;
+}
+
+/* 기본 정보 */
+.heroInfo {
+  flex: 1;
+}
+
+.heroName {
+  font-size: 40px;
+  font-weight: 900;
+  color: var(--text-h);
+  letter-spacing: -1.5px;
+  margin-bottom: 10px;
+  line-height: 1.1;
+}
+
+.heroTagline {
+  font-size: 15px;
+  color: var(--text);
+  opacity: 0.8;
+  margin-bottom: 20px;
+  line-height: 1.6;
+  max-width: 480px;
+}
+
+.heroBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.badge:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ══ Section ══ */
+.section {
+  margin-top: 56px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 28px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--border);
+}
+
+.sectionIcon { font-size: 20px; }
+
+.sectionTitle {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-h);
+  letter-spacing: -0.5px;
+}
+
+.sectionSub {
+  font-size: 12px;
+  color: var(--text);
+  opacity: 0.55;
+  margin-left: 4px;
+}
+
+/* ══ Timeline (경력) ══ */
+.timeline {
+  position: relative;
+  padding-left: 28px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 8px;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--accent), var(--border));
+  border-radius: 2px;
+}
+
+.timelineItem {
+  position: relative;
+  margin-bottom: 32px;
+}
+
+.timelineItem:last-child { margin-bottom: 0; }
+
+.timelineDot {
+  position: absolute;
+  left: -24px;
+  top: 12px;
+  width: 12px;
+  height: 12px;
+  background: var(--border);
+  border: 2px solid var(--bg);
+  border-radius: 50%;
+  transition: background 0.15s;
+}
+
+.current .timelineDot {
+  background: var(--accent);
+  box-shadow: 0 0 10px rgba(170, 59, 255, 0.6);
+}
+
+/* 카드 */
+.timelineCard {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  transition: border-color 0.15s;
+}
+
+.timelineCard:hover { border-color: var(--accent); }
+
+.current .timelineCard {
+  border-color: rgba(170, 59, 255, 0.4);
+  background: linear-gradient(135deg, rgba(170, 59, 255, 0.04), var(--code-bg));
+}
+
+.cardHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.cardCompany {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--text-h);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.nowTag {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 20px;
+  letter-spacing: 0.3px;
+}
+
+.cardRole {
+  font-size: 13px;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.cardMeta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.cardPeriod {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-h);
+  font-family: var(--mono);
+}
+
+.cardDuration {
+  font-size: 12px;
+  color: var(--text);
+  opacity: 0.6;
+}
+
+.cardSalary {
+  font-size: 12px;
+  color: var(--text);
+  opacity: 0.55;
+}
+
+/* 업무 목록 */
+.taskList {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.taskItem {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.65;
+  padding-left: 14px;
+  position: relative;
+  opacity: 0.88;
+}
+
+.taskItem::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* 기술 태그 */
+.skillTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.skillTag {
+  padding: 3px 10px;
+  background: var(--accent-bg);
+  border: 1px solid rgba(170, 59, 255, 0.25);
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  font-family: var(--mono);
+  white-space: nowrap;
+}
+
+/* ══ 학력 ══ */
+.eduList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.eduItem {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 18px 24px;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.eduLeft { flex-shrink: 0; }
+
+.eduPeriod {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  opacity: 0.65;
+  font-family: var(--mono);
+  white-space: nowrap;
+}
+
+.eduRight {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.eduSchool {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-h);
+}
+
+.eduDetail {
+  font-size: 13px;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ══ 자격증 ══ */
+.certList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.certItem {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 24px;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  flex-wrap: wrap;
+}
+
+.certName {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-h);
+  flex: 1;
+}
+
+.certDate {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  font-family: var(--mono);
+  white-space: nowrap;
+}
+
+.certIssuer {
+  font-size: 12px;
+  color: var(--text);
+  opacity: 0.55;
+  white-space: nowrap;
+}
+
+/* ══ 프로젝트 ══ */
+.projectGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.projectCard {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: border-color 0.15s, transform 0.15s;
+}
+
+.projectCard:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.projectHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.projectPeriod {
+  font-size: 12px;
+  color: var(--text);
+  opacity: 0.6;
+  font-family: var(--mono);
+}
+
+.projectTeam {
+  font-size: 11px;
+  padding: 2px 8px;
+  background: var(--accent-bg);
+  border: 1px solid rgba(170,59,255,0.2);
+  border-radius: 20px;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.projectName {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text-h);
+  line-height: 1.3;
+}
+
+.projectDesc {
+  font-size: 13px;
+  color: var(--text);
+  opacity: 0.8;
+  line-height: 1.65;
+  flex: 1;
+}
+
+.projectLink {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  transition: opacity 0.15s;
+  align-self: flex-start;
+}
+
+.projectLink:hover { opacity: 0.7; }
+
+/* ══ 기술 스택 ══ */
+.skillGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.skillGroup {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.skillCategory {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+  opacity: 0.55;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 12px;
+}
+
+/* ══ Responsive ══ */
+@media (max-width: 768px) {
+  .hero       { padding: 36px 20px; }
+  .heroInner  { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .heroName   { font-size: 30px; }
+
+  .container  { padding: 0 20px 60px; }
+  .section    { margin-top: 40px; }
+
+  .cardHead   { flex-direction: column; gap: 8px; }
+  .cardMeta   { align-items: flex-start; }
+
+  .projectGrid,
+  .skillGrid  { grid-template-columns: 1fr; }
+
+  .eduItem    { flex-direction: column; align-items: flex-start; gap: 8px; }
+}

@@ -1,0 +1,65 @@
+/* ── Header — 모바일 전용 ── */
+.header {
+  display: none; /* 기본 숨김 */
+}
+
+@media (max-width: 768px) {
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    height: 56px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    flex-shrink: 0;
+  }
+
+  .logo {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent);
+    font-family: var(--mono);
+  }
+
+  .right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+  }
+
+  /* ── Burger ── */
+  .burger {
+    display: flex;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    flex-direction: column;
+    gap: 5px;
+    border-radius: 6px;
+    transition: background 0.15s;
+  }
+
+  .burger:hover {
+    background: var(--accent-bg);
+  }
+
+  .bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text-h);
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+    transform-origin: center;
+  }
+
+  .bar.open:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .bar.open:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .bar.open:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+}

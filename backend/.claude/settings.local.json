@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash('/c/Program Files/PostgreSQL/18/bin/psql' -h localhost -p 5432 -U postgres -d postgres -c ':*)",
+      "Bash(xargs ls:*)",
+      "Read(//c/Users/ss/AppData/Roaming/Claude/local-agent-mode-sessions/skills-plugin/5310f417-3733-4d4a-806a-8adf062a1e47/c2109b6c-42fe-43ab-a725-6767dfadc641/skills/docx/**)",
+      "Bash(python scripts/office/soffice.py --headless --convert-to docx \"/c/Users/ss/Downloads/전체 구조를 보는 넓은 시야로 문제를 해결하는 이승현 입니다._yacobleee \\(1\\).doc\" --outdir /tmp/resume_out)",
+      "Bash(python3 -c \"import subprocess; r=subprocess.run\\(['soffice','--version'],capture_output=True,text=True\\); print\\(r.stdout,r.stderr\\)\")",
+      "Bash(antiword \"/c/Users/ss/Downloads/전체 구조를 보는 넓은 시야로 문제를 해결하는 이승현 입니다._yacobleee \\(2\\).doc\")",
+      "Bash(pdftotext \"/c/Users/ss/Downloads/전체 구조를 보는 넓은 시야로 문제를 해결하는 이승현 입니다._yacobleee.pdf\" -)",
+      "Bash(ls /c/Users/ss/Documents/MainProject/frontend/src/pages/ResumePage*)",
+      "Bash(npm install:*)",
+      "Bash(mkdir -p \"C:\\\\Users\\\\ss\\\\Documents\\\\MainProject\\\\backend\\\\scripts\\\\notion_data\")",
+      "Bash(unzip -o \"C:\\\\Users\\\\ss\\\\Downloads\\\\notion_data.zip\")",
+      "Bash(ls *.html)",
+      "Bash(node -e ':*)"
+    ]
+  }
+}
