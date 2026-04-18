@@ -47,7 +47,9 @@ export default function Sidebar() {
 
         {/* 브랜드 */}
         <div className={styles.brand}>
-          <span className={styles.logo}>{'< Dev />'}</span>
+          <span className={styles.logo}>
+            <a href="/">{'</ sh_lee >'}</a>
+          </span>
           <p className={styles.tagline}>Personal Tech Archive</p>
         </div>
 
