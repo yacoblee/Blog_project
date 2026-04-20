@@ -33,8 +33,8 @@ export default function PostDetailPage() {
       </div>
     )
   }
-
-  const formattedDate = new Date(post.date).toLocaleDateString('ko-KR', {
+  console.log('포스트 데이터:', post.created_at)
+  const formattedDate = new Date(post.created_at).toLocaleDateString('ko-KR', {
     year: 'numeric', month: 'long', day: 'numeric', weekday: 'long',
   })
 

@@ -37,13 +37,15 @@ export default function PostCard({ post, variant = 'default' }) {
   const isAdmin   = useSelector(state => state.auth.isAdmin)
   const deletePost = useDeletePost()
 
-  const { id, title, excerpt, content, category, date, author, thumbnail } = post
+  const { id, title, excerpt, content, category, created_at, author, thumbnail } = post
 
   const isFeatured  = variant === 'featured'
   const displayText = excerpt || makeExcerpt(content)
-  const formattedDate = new Date(date).toLocaleDateString('ko-KR', {
+  const formattedDate = new Date(created_at).toLocaleDateString('ko-KR', {
     year: 'numeric', month: 'long', day: 'numeric',
   })
+  
+  console.log('포스트 데이터:', post.created_at)
 
   const handleEdit = (e) => {
     e.preventDefault()
