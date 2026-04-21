@@ -2,9 +2,9 @@
    방명록 페이지 — 티스토리 스타일
    ════════════════════════════════════════════════════════════ */
 .hero {
-  width: 100%;
-  min-height: 100vh;
-  background: linear-gradient(150deg, #1a0533 0%, #2d1b69 45%, #1e3a5f 100%);
+  /* width: 100%; */
+  /* min-height: 100vh; */
+  background: linear-gradient(180deg, #160925c7 -1%, #3a1e97d9 45%, #651fddad 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,13 +24,13 @@
 .heroLabel {
   position: absolute;
   top: 28px;
-  left: 32px;
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.14em;
   color: rgba(255, 255, 255, 0.35);
   font-family: 'Courier New', Courier, monospace;
   text-transform: uppercase;
+  margin-left: calc(-100vw + 50%);
 }
 
 /* 프롬프트 말풍선 — 우측 정렬 */
@@ -117,7 +117,7 @@
 .page {
   max-width: 780px;
   margin: 0 auto;
-  padding: 40px 24px 60px;
+  padding: 0px 24px 60px;
   overflow: visible; 
 }
 
@@ -153,6 +153,8 @@
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 32px;
+  width: 50vw;
+  min-width: 420px;
 }
 
 .formRow {
@@ -628,6 +630,8 @@
   font-size: clamp(24px, 5vw, 40px); 
   font-weight: 900;
   text-transform: uppercase;
+  margin-top: 50px;
+  margin-bottom: 120px;
 }
 
 .special-water .text-bg {

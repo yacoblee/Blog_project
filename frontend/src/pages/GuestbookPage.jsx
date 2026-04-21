@@ -316,8 +316,8 @@ export default function GuestbookPage() {
           <TypewriterHeader
             text="방명록에 글을 남겨주세요."
             speed={40}
-            loop={true}
-            pause={2000}
+            loop={false}
+            pause={2500}
             className={styles.heroPromptText}
           />
         </div>
@@ -327,7 +327,7 @@ export default function GuestbookPage() {
         <span className={styles.heroResponseLabel}>RESPONSE</span>
         <TypewriterHeader
           text="여러분의 소중한 방문을 기억합니다 — 자유롭게 의견을 남겨주세요."
-          speed={30}
+          speed={60}
           loop={true}
           pause={2500}
           className={styles.heroResponseText}
@@ -343,7 +343,6 @@ export default function GuestbookPage() {
         <div className={`${styles['water-layer']} ${styles['layer-3']}`}>Comment Page</div>
       </div>
       <div className={styles.header}>
-        <p className={styles.desc}>자유롭게 의견을 남겨주세요.</p>
         {pagination.total != null && (
           <p className={styles.count}>총 {pagination.total}개의 글</p>
         )}
