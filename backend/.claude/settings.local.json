@@ -13,7 +13,11 @@
       "Bash(mkdir -p \"C:\\\\Users\\\\ss\\\\Documents\\\\MainProject\\\\backend\\\\scripts\\\\notion_data\")",
       "Bash(unzip -o \"C:\\\\Users\\\\ss\\\\Downloads\\\\notion_data.zip\")",
       "Bash(ls *.html)",
-      "Bash(node -e ':*)"
+      "Bash(node -e ':*)",
+      "Bash(npm run *)",
+      "Bash(node -e ' *)",
+      "Bash(node scripts/importNotion.js --truncate)",
+      "Bash(node scripts/generate-architecture-pdf.js)"
     ]
   }
 }

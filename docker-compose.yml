@@ -1,0 +1,137 @@
+version: '3.8'
+
+# ════════════════════════════════════════════════════════════════
+# Blog Project — Docker Compose
+#
+# 서비스 구성:
+#   db        → PostgreSQL 16
+#   backend   → Node.js 24 / Express API (포트 4000, 내부)
+#   frontend  → React 19 + Vite 빌드 → nginx static (내부)
+#   nginx     → 리버스 프록시 (외부 진입점: 80 / 443)
+#   jenkins   → CI/CD (포트 8080)
+#
+# 사용법:
+#   cp .env.docker .env.docker.local  ← 시크릿 값 입력
+#   docker compose --env-file .env.docker.local up -d --build
+# ════════════════════════════════════════════════════════════════
+
+networks:
+  blog-network:
+    driver: bridge
+
+volumes:
+  blog-db-data:       # PostgreSQL 데이터 영속화
+  blog-jenkins-data:  # Jenkins 홈 디렉터리 영속화
+
+services:
+
+  # ── PostgreSQL 16 ─────────────────────────────────────────────
+  db:
+    image: postgres:16-alpine
+    container_name: blog-db
+    restart: always
+    environment:
+      POSTGRES_DB:       ${DB_NAME:-blog_db}
+      POSTGRES_USER:     ${DB_USER:-blog_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - blog-db-data:/var/lib/postgresql/data
+      # 첫 실행 시 DB 초기화 스크립트 (admin 계정 시드 등)
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - blog-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-blog_user} -d ${DB_NAME:-blog_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  # ── Backend — Node.js 24 / Express ───────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: blog-backend
+    restart: always
+    environment:
+      NODE_ENV:          production
+      PORT:              4000
+      # DB — 호스트는 서비스명(db) 사용
+      DB_HOST:           db
+      DB_PORT:           5432
+      DB_NAME:           ${DB_NAME:-blog_db}
+      DB_USER:           ${DB_USER:-blog_user}
+      DB_PASSWORD:       ${DB_PASSWORD}
+      # JWT 시크릿 (반드시 .env.docker에 설정)
+      JWT_SECRET:        ${JWT_SECRET}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET}
+      # 관리자 계정 시드
+      ADMIN_EMAIL:       ${ADMIN_EMAIL}
+      ADMIN_PASSWORD:    ${ADMIN_PASSWORD}
+      # CORS — nginx를 통해 들어오는 오리진 허용
+      FRONTEND_ORIGINS:  ${FRONTEND_ORIGINS:-http://localhost}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - blog-network
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:4000/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 25s
+
+  # ── Frontend — React 19 + Vite → nginx static ─────────────────
+  # Dockerfile 내부: 멀티스테이지 빌드 (node:24 → nginx:alpine)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: blog-frontend
+    restart: always
+    networks:
+      - blog-network
+    # 외부 포트 미노출 — nginx 가 내부에서만 접근
+
+  # ── Nginx — 리버스 프록시 (외부 진입점) ───────────────────────
+  #   /api/*   → blog-backend:4000
+  #   /health  → blog-backend:4000/health
+  #   /        → blog-frontend:80 (SPA)
+  nginx:
+    image: nginx:alpine
+    container_name: blog-nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      # SSL 인증서 (Let's Encrypt / Certbot 연동 시 마운트)
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    depends_on:
+      backend:
+        condition: service_healthy
+      frontend:
+        condition: service_started
+    networks:
+      - blog-network
+
+  # ── Jenkins — CI/CD ──────────────────────────────────────────
+  # Docker-in-Docker: /var/run/docker.sock 마운트로 Host Docker 사용
+  jenkins:
+    image: jenkins/jenkins:lts-jdk21
+    container_name: blog-jenkins
+    restart: always
+    ports:
+      - "8080:8080"    # Jenkins Web UI
+      - "50000:50000"  # Jenkins Agent 통신
+    volumes:
+      - blog-jenkins-data:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock  # Host Docker 소켓
+    environment:
+      # 초기 Setup Wizard 건너뛰기 (원하면 false로 변경)
+      JAVA_OPTS: "-Djenkins.install.runSetupWizard=true"
+    networks:
+      - blog-network
