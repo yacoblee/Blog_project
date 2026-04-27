@@ -6,22 +6,24 @@ const pool    = require('../config/db')
 const router = express.Router()
 
 // ── 쿠키 옵션 헬퍼 ────────────────────────────────────────────
-// isProd: HTTPS 환경에서만 Secure 플래그 활성화
-const isProd = process.env.NODE_ENV === 'production'
+// COOKIE_SECURE 환경변수로 NODE_ENV와 독립적으로 제어
+// HTTP 서비스: COOKIE_SECURE=false
+// HTTPS 서비스: COOKIE_SECURE=true
+const isCookieSecure = process.env.COOKIE_SECURE === 'true'
 
 /**
  * Refresh Token 쿠키 옵션
  * - httpOnly  : JS 접근 완전 차단 → XSS 방어
- * - secure    : HTTPS 전용 (prod)
- * - sameSite  : 'lax' → 일반 탐색은 쿠키 전송, 외부 POST는 차단 → CSRF 방어
+ * - secure    : HTTPS 전용 (COOKIE_SECURE=true 일 때만 활성화)
+ * - sameSite  : secure=true → 'strict' / HTTP → 'lax'
  * - path      : /api/auth 로 한정 → 다른 경로에 쿠키 불필요 전송 방지
  *
  * MSA 주의: 서브도메인이 다를 경우 domain: '.yourdomain.com' 추가 필요
  */
 const REFRESH_COOKIE_OPTS = {
   httpOnly: true,
-  secure:   isProd,
-  sameSite: isProd ? 'strict' : 'lax',
+  secure:   isCookieSecure,
+  sameSite: isCookieSecure ? 'strict' : 'lax',
   path:     '/api/auth',
   maxAge:   7 * 24 * 60 * 60 * 1000, // 7일 (ms)
 }
